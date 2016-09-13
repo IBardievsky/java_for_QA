@@ -12,4 +12,8 @@ public class Point {
     this.b = p2;
   }
 
+  public double distance() {
+    return Math.pow(this.b - this.a, 2);
+  }
+
 }
