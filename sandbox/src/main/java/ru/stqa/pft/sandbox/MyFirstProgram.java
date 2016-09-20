@@ -6,7 +6,7 @@ public class MyFirstProgram {
     Point secondPoint = new Point(3, 5);
 
     System.out.println("Координаты точки а = " + firtsPoint.a + "," + firtsPoint.b + " координаты точки b = " + secondPoint.a + "," + secondPoint.b);
-    System.out.println("Расстояние между точками a и b = " + Math.sqrt(firtsPoint.distance() + secondPoint.distance()));  }
+    System.out.println("Расстояние между точками a и b = " + firtsPoint.distance(secondPoint));  }
 
 
 }
