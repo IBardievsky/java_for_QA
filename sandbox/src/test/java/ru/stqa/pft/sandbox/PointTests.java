@@ -12,7 +12,7 @@ public class PointTests {
   public void negativeNumbers(){
     Point firstPoint = new Point(-8,-10);
     Point secondPoint = new Point(-3,-5);
-    Assert.assertEquals(firstPoint.distance(secondPoint),7.0710678118654755);
+    Assert.assertEquals(firstPoint.distance(secondPoint),7.0710678118654752);
   }
 
   @Test
