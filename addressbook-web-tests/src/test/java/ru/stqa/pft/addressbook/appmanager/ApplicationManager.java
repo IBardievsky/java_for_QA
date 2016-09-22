@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -14,15 +13,17 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NaviagationHelper naviagationHelper;
   private GroupHelper groupHelper;
+  private ContactHelper contactHelper;
 
 
   public void init() {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/group.php");
+    wd.get("http://localhost/addressbook/");
     sessionHelper = new SessionHelper(wd);
     groupHelper = new GroupHelper(wd);
     naviagationHelper = new NaviagationHelper(wd);
+    contactHelper = new ContactHelper(wd);
     sessionHelper.login("admin", "secret");
   }
 
@@ -41,4 +42,9 @@ public class ApplicationManager {
   public void gotoGroupPage() {
     naviagationHelper.gotoGroupPage();
   }
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
+
+
 }
