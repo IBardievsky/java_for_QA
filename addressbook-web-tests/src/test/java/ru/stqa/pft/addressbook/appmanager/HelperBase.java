@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * Created by User on 9/22/2016.
@@ -23,6 +24,12 @@ public class HelperBase {
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
   }
+
+  protected void select(By locator, String text){
+    Select s = new Select(wd.findElement(locator));
+    s.selectByVisibleText(text);
+  }
+
   public boolean isAlertPresent() {
     try {
       wd.switchTo().alert();
