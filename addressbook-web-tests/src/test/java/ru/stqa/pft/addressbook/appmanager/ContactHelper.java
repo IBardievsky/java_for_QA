@@ -18,7 +18,7 @@ public class ContactHelper extends HelperBase{
     super(wd);
   }
 
-
+  NaviagationHelper nhelper = new NaviagationHelper(wd);
 
   public void fillContactFields(NewContactData contactData, boolean creation) {
     type(By.name("firstname"),contactData.getFirstname());
@@ -47,7 +47,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void selectContact() {
-    click(By.id("5"));
+    click(By.name("selected[]"));
   }
 
   public void submitContactDeletion() {
@@ -65,5 +65,18 @@ public class ContactHelper extends HelperBase{
 
   public void submitContactUpdate() {
     click(By.cssSelector("input[value=\"Update\"]"));
+  }
+
+
+
+  public void creationContact(NewContactData contact) {
+    goToAddContactPage();
+    fillContactFields(contact,true);
+    submitContactCreation();
+    nhelper.gotoHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 }

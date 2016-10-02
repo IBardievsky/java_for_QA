@@ -58,9 +58,9 @@ public class ApplicationManager {
   public void gotoGroupPage() {
     naviagationHelper.gotoGroupPage();
   }
+
   public ContactHelper getContactHelper() {
     return contactHelper;
   }
-
 
 }
