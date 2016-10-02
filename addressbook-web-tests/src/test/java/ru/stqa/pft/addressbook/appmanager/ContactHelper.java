@@ -1,9 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.NewContactData;
 
 /**
@@ -18,21 +20,26 @@ public class ContactHelper extends HelperBase{
 
 
 
-  public void fillNewContactFields(NewContactData newContactData) {
-    type(By.name("firstname"),newContactData.getFirstname());
-    type(By.name("lastname"),newContactData.getLastname());
-    type(By.name("nickname"),newContactData.getNickname());
-    type(By.name("company"),newContactData.getCompany());
-    type(By.name("mobile"),newContactData.getMobile());
-    type(By.name("email"),newContactData.getEmail());
-    select(By.name("bday"),newContactData.getBday());
-    select(By.name("bmonth"),newContactData.getBmonth());
-    type(By.name("byear"), newContactData.getByear());
-    type(By.name("address2"),newContactData.getAddress());
+  public void fillContactFields(NewContactData contactData, boolean creation) {
+    type(By.name("firstname"),contactData.getFirstname());
+    type(By.name("lastname"),contactData.getLastname());
+    type(By.name("nickname"),contactData.getNickname());
+    type(By.name("company"),contactData.getCompany());
+    type(By.name("mobile"),contactData.getMobile());
+    type(By.name("email"),contactData.getEmail());
+    select(By.name("bday"),contactData.getBday());
+    select(By.name("bmonth"),contactData.getBmonth());
+    type(By.name("byear"), contactData.getByear());
+    type(By.name("address2"),contactData.getAddress());
 
+    if (creation){
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
-  public void submitContactCreation() { click(By.xpath("//div[@id='content']/form/input[21]"));
+  public void submitContactCreation() { click(By.cssSelector("input[value=\"Enter\"]"));
   }
 
   public void goToAddContactPage() {
@@ -40,7 +47,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void selectContact() {
-    click(By.id("12"));
+    click(By.id("5"));
   }
 
   public void submitContactDeletion() {
