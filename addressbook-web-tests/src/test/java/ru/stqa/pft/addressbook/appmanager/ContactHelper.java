@@ -36,7 +36,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("address2"),contactData.getAddress());
 
     if (creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      select(By.name("new_group"), contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -61,8 +61,8 @@ public class ContactHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void pressEditButton() {
-    click(By.cssSelector("img[alt=\"Edit\"]"));
+  public void pressEditButton(int index) {
+    wd.findElements (By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
   }
 
 
