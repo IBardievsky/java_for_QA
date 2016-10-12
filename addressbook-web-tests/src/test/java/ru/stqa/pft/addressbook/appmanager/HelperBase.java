@@ -1,16 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 /**
  * Created by User on 9/22/2016.
  */
 public class HelperBase {
-  protected WebDriver wd;
+  private WebDriver wd;
 
   public HelperBase(WebDriver wd) {
     this.wd=wd;
@@ -31,8 +30,17 @@ public class HelperBase {
     }
   }
 
-  protected void getText(By locator){
-    wd.findElement(locator).getText();
+  protected String getText(By locator){
+    return wd.findElement(locator).getText();
+
+  }
+
+  protected List<WebElement> findElements(By locator) {
+    return wd.findElements(locator);
+  }
+
+  protected WebDriver.TargetLocator switchTo() {
+    return wd.switchTo();
   }
 
   protected void select(By locator, String text){

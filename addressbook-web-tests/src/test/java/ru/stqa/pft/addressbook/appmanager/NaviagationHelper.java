@@ -14,16 +14,16 @@ public class NaviagationHelper extends HelperBase {
     super(wd);
   }
 
-  public void gotoGroupPage() {
+  public void groupPage() {
     if (isElementPresent(By.tagName("h1"))
-            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+            && getText(By.tagName("h1")).equals("Groups")
             && isElementPresent(By.name("new"))) {
       return;
     }
     click(By.linkText("groups"));
   }
 
-  public void gotoHomePage(){
+  public void homePage(){
     if (isElementPresent(By.id("maintable"))){
       return;
     }

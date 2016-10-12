@@ -47,19 +47,19 @@ public class ApplicationManager {
     wd.quit();
   }
 
-  public GroupHelper getGroupHelper() {
+  public GroupHelper group() {
     return groupHelper;
   }
 
-  public NaviagationHelper getNaviagationHelper() {
+  public NaviagationHelper goTo() {
     return naviagationHelper;
   }
 
   public void gotoGroupPage() {
-    naviagationHelper.gotoGroupPage();
+    naviagationHelper.groupPage();
   }
 
-  public ContactHelper getContactHelper() {
+  public ContactHelper contact() {
     return contactHelper;
   }
 

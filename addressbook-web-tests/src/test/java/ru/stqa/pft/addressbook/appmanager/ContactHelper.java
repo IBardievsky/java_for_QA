@@ -3,10 +3,8 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +14,13 @@ import java.util.List;
  */
 public class ContactHelper extends HelperBase{
 
+  NaviagationHelper navigateTo;
 
   public ContactHelper(WebDriver wd) {
     super(wd);
+    navigateTo = new NaviagationHelper(wd);
   }
 
-  NaviagationHelper navhelp = new NaviagationHelper(wd);
 
   public void fillContactFields(ContactData contactData, boolean creation) {
     type(By.name("firstname"),contactData.getFirstname());
@@ -50,7 +49,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+    findElements(By.name("selected[]")).get(index).click();
     }
 
   public void submitContactDeletion() {
@@ -58,12 +57,14 @@ public class ContactHelper extends HelperBase{
   }
 
   public void allertMessage() {
-    wd.switchTo().alert().accept();
+    switchTo().alert().accept();
   }
 
+
   public void pressEditButton(int index) {
-    wd.findElements (By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
+    findElements(By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
   }
+
 
 
   public void submitContactUpdate() {
@@ -76,29 +77,42 @@ public class ContactHelper extends HelperBase{
     goToAddContactPage();
     fillContactFields(contact,true);
     submitContactCreation();
-    navhelp.gotoHomePage();
+    navigateTo.homePage();
+  }
+
+  public void modify(int index, ContactData contact) {
+   pressEditButton(index);
+   fillContactFields(contact,false);
+   submitContactUpdate();
+   navigateTo.homePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    submitContactDeletion();
+    allertMessage();
+    navigateTo.homePage();
   }
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-    for (WebElement element : elements) {
-      String firstName = element.findElement(By.cssSelector("tr>td:nth-of-type(3)")).getText();
-      String lastName = element.findElement(By.cssSelector("tr>td:nth-of-type(2)")).getText();
-      String eMail = element.findElement(By.cssSelector("tr>td:nth-of-type(5)")).getText();
-      String mobilePhone = element.findElement(By.cssSelector("tr>td:nth-of-type(6)")).getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, firstName, lastName, null, null, mobilePhone, eMail, null, null, null, null, null);
-      contacts.add(contact);
+    List<WebElement> rows = findElements(By.cssSelector("tr[name='entry']"));
+    for (WebElement row : rows) {
+      String firstName = row.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
+      String lastName = row.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
+      String eMail = row.findElement(By.cssSelector("td:nth-of-type(5)")).getText();
+      String mobilePhone = row.findElement(By.cssSelector("td:nth-of-type(6)")).getText();
+      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+      contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withMobile(mobilePhone).withEmail(eMail));
     }
     return contacts;
   }
 
   public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size();
+    return findElements(By.name("selected[]")).size();
   }
 }
