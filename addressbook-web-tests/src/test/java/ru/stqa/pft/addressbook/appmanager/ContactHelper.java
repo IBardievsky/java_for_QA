@@ -7,7 +7,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by User on 9/22/2016.
@@ -20,7 +22,6 @@ public class ContactHelper extends HelperBase{
     super(wd);
     navigateTo = new NaviagationHelper(wd);
   }
-
 
   public void fillContactFields(ContactData contactData, boolean creation) {
     type(By.name("firstname"),contactData.getFirstname());
@@ -41,15 +42,16 @@ public class ContactHelper extends HelperBase{
     }
   }
 
-  public void submitContactCreation() { click(By.cssSelector("input[value=\"Enter\"]"));
+  public void submitContactCreation() {
+    click(By.cssSelector("input[value=\"Enter\"]"));
   }
 
   public void goToAddContactPage() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) {
-    findElements(By.name("selected[]")).get(index).click();
+  public void selectContactById(int id) {
+    findElement(By.cssSelector("input[value='"+ id +"']")).click();
     }
 
   public void submitContactDeletion() {
@@ -60,18 +62,13 @@ public class ContactHelper extends HelperBase{
     switchTo().alert().accept();
   }
 
-
-  public void pressEditButton(int index) {
-    findElements(By.cssSelector("img[alt=\"Edit\"]")).get(index).click();
+  public void pressEditButtonById(int id) {
+    findElement(By.cssSelector("a[href=\"edit.php?id="+ id +"\"]")).click();
   }
-
-
 
   public void submitContactUpdate() {
     click(By.cssSelector("input[value=\"Update\"]"));
   }
-
-
 
   public void creationContact(ContactData contact) {
     goToAddContactPage();
@@ -80,15 +77,15 @@ public class ContactHelper extends HelperBase{
     navigateTo.homePage();
   }
 
-  public void modify(int index, ContactData contact) {
-   pressEditButton(index);
+  public void modify(ContactData contact) {
+   pressEditButtonById(contact.getId());
    fillContactFields(contact,false);
    submitContactUpdate();
    navigateTo.homePage();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     submitContactDeletion();
     allertMessage();
     navigateTo.homePage();
@@ -98,8 +95,8 @@ public class ContactHelper extends HelperBase{
     return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> rows = findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement row : rows) {
       String firstName = row.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
@@ -110,9 +107,5 @@ public class ContactHelper extends HelperBase{
       contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withMobile(mobilePhone).withEmail(eMail));
     }
     return contacts;
-  }
-
-  public int getContactCount() {
-    return findElements(By.name("selected[]")).size();
   }
 }

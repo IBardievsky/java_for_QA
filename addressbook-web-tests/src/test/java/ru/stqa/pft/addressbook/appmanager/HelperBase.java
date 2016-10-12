@@ -39,6 +39,10 @@ public class HelperBase {
     return wd.findElements(locator);
   }
 
+  protected WebElement findElement(By locator) {
+    return wd.findElement(locator);
+  }
+
   protected WebDriver.TargetLocator switchTo() {
     return wd.switchTo();
   }
