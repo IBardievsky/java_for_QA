@@ -7,10 +7,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by User on 9/22/2016.
@@ -29,7 +26,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("lastname"),contactData.getLastname());
     type(By.name("nickname"),contactData.getNickname());
     type(By.name("company"),contactData.getCompany());
-    type(By.name("mobile"),contactData.getMobile());
+    type(By.name("mobile"),contactData.getMobilePhone());
     type(By.name("email"),contactData.getEmail());
     select(By.name("bday"),contactData.getBday());
     select(By.name("bmonth"),contactData.getBmonth());
@@ -75,6 +72,7 @@ public class ContactHelper extends HelperBase{
     goToAddContactPage();
     fillContactFields(contact,true);
     submitContactCreation();
+    contactCache = null;
     navigateTo.homePage();
   }
 
@@ -82,6 +80,7 @@ public class ContactHelper extends HelperBase{
    pressEditButtonById(contact.getId());
    fillContactFields(contact,false);
    submitContactUpdate();
+    contactCache = null;
    navigateTo.homePage();
   }
 
@@ -89,6 +88,7 @@ public class ContactHelper extends HelperBase{
     selectContactById(contact.getId());
     submitContactDeletion();
     allertMessage();
+    contactCache = null;
     navigateTo.homePage();
   }
 
@@ -96,17 +96,45 @@ public class ContactHelper extends HelperBase{
     return isElementPresent(By.name("selected[]"));
   }
 
-  public Contacts all() {
-    Contacts contacts = new Contacts();
-    List<WebElement> rows = findElements(By.cssSelector("tr[name='entry']"));
-    for (WebElement row : rows) {
-      String firstName = row.findElement(By.cssSelector("td:nth-of-type(3)")).getText();
-      String lastName = row.findElement(By.cssSelector("td:nth-of-type(2)")).getText();
-      String eMail = row.findElement(By.cssSelector("td:nth-of-type(5)")).getText();
-      String mobilePhone = row.findElement(By.cssSelector("td:nth-of-type(6)")).getText();
-      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withMobile(mobilePhone).withEmail(eMail));
-    }
-    return contacts;
+  public int count(){
+    return findElements(By.name("selected[]")).size();
   }
+
+  private Contacts contactCache = null;
+
+  public Contacts all() {
+    if (contactCache != null){
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
+    List<WebElement> rows = findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+      String firstName = cells.get(2).getText();
+      String lastName = cells.get(1).getText();
+      String[] phones = cells.get(5).getText().split("\n");
+      contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
+    }
+    return new Contacts(contactCache);
+  }
+
+  public ContactData infoFromEditForm(ContactData contact) {
+    pressEditButtonById(contact.getId());
+    String firstname = findElement(By.name("firstname")).getAttribute("value");
+    String lastname = findElement(By.name("lastname")).getAttribute("value");
+    String homePhone = findElement(By.name("home")).getAttribute("value");
+    String mobilePhone = findElement(By.name("mobile")).getAttribute("value");
+    String workPhone = findElement(By.name("work")).getAttribute("value");
+    String email = findElement(By.name("email")).getAttribute("value");
+    String email2 = findElement(By.name("email2")).getAttribute("value");
+    String email3 = findElement(By.name("email3")).getAttribute("value");
+    String firstAddress = findElement(By.name("address")).getAttribute("value");
+    navigate().back();
+    return new ContactData().withId(contact.getId()).withFirstname(contact.getFirstname()).withLastname(contact.getLastname())
+            .withFirstAddress(contact.getFirstAddress()).withEmail(contact.getEmail()).withEmail2(contact.getEmail2())
+            .withEmail3(contact.getEmail3()).withHomePhone(contact.getHomePhone()).withMobilePhone(contact.getMobilePhone())
+            .withWorkPhone(contact.getWorkPhone());
+  }
+
 }

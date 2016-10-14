@@ -47,6 +47,10 @@ public class HelperBase {
     return wd.switchTo();
   }
 
+  protected WebDriver.Navigation navigate(){
+    return wd.navigate();
+  }
+
   protected void select(By locator, String text){
     if (text != null){
       String existingText = wd.findElement(locator).getAttribute("value");
