@@ -17,11 +17,11 @@ public class ContactData {
   private  String bmonth;
   private  String byear;
   private  String address;
-  private  String address1;
   private  String group;
   private  String allPhones;
   private  String allEmails;
   private  String allAddress;
+  private  String allInfo;
 
 
   public ContactData withId(int id) {
@@ -125,13 +125,9 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withAddress1(String address1) {
-    this.address1 = address1;
+  public ContactData withAllInfo(String allInfo) {
+    this.allInfo = allInfo;
     return this;
-  }
-
-  public String getAddress1() {
-    return address1;
   }
 
   public int getId() {
@@ -180,11 +176,7 @@ public class ContactData {
     return group;
   }
 
-  public String getFirstAddress() {
-    return firstAddress;
-  }
-
-   public String getHomePhone() {
+  public String getHomePhone() {
     return homePhone;
   }
 
@@ -212,6 +204,10 @@ public class ContactData {
     return allAddress;
   }
 
+  public String getAllInfo() {
+    return allInfo;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -221,10 +217,7 @@ public class ContactData {
 
     if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-    if (allPhones != null ? !allPhones.equals(that.allPhones) : that.allPhones != null) return false;
-    if (allEmails != null ? !allEmails.equals(that.allEmails) : that.allEmails != null) return false;
-    return allAddress != null ? allAddress.equals(that.allAddress) : that.allAddress == null;
+    return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
 
   }
 
@@ -233,9 +226,6 @@ public class ContactData {
     int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-    result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
-    result = 31 * result + (allEmails != null ? allEmails.hashCode() : 0);
-    result = 31 * result + (allAddress != null ? allAddress.hashCode() : 0);
     return result;
   }
 
@@ -245,9 +235,6 @@ public class ContactData {
             "id=" + id +
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
-            ", allPhones='" + allPhones + '\'' +
-            ", allEmails='" + allEmails + '\'' +
-            ", allAddress='" + allAddress + '\'' +
             '}';
   }
 }

@@ -117,8 +117,13 @@ public class ContactHelper extends HelperBase{
       String allAddress = cells.get(3).getText();
       String allEmails = cells.get(4).getText();
       String allPhones = cells.get(5).getText();
-      contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
-              .withAllAddress(allAddress).withAllEmails(allEmails).withAllPhones(allPhones));
+      contactCache.add(new ContactData().
+              withId(id).
+              withFirstname(firstName).
+              withLastname(lastName).
+              withAllAddress(allAddress).
+              withAllEmails(allEmails).
+              withAllPhones(allPhones));
     }
     return new Contacts(contactCache);
   }
@@ -135,10 +140,23 @@ public class ContactHelper extends HelperBase{
     String email3 = findElement(By.name("email3")).getAttribute("value");
     String firstAddress = findElement(By.name("address")).getAttribute("value");
     navigate().back();
-    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
-            .withFirstAddress(firstAddress).withEmail(email).withEmail2(email2)
-            .withEmail3(email3).withHomePhone(homePhone).withMobilePhone(mobilePhone)
-            .withWorkPhone(workPhone);
+    return new ContactData().
+            withId(contact.getId()).
+            withFirstname(firstname).
+            withLastname(lastname).
+            withFirstAddress(firstAddress).
+            withEmail(email).
+            withEmail2(email2).
+            withEmail3(email3).
+            withHomePhone(homePhone).
+            withMobilePhone(mobilePhone).
+            withWorkPhone(workPhone);
   }
 
+  public ContactData contactDetailsInfo(ContactData contact){
+    findElement(By.cssSelector("a[href=\"view.php?id="+ contact.getId() +"\"]")).click();
+    String info = findElement(By.id("content")).getText();
+    navigate().back();
+    return new ContactData().withAllInfo(info);
+  }
 }
