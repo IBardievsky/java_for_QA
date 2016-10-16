@@ -135,10 +135,10 @@ public class ContactHelper extends HelperBase{
     String email3 = findElement(By.name("email3")).getAttribute("value");
     String firstAddress = findElement(By.name("address")).getAttribute("value");
     navigate().back();
-    return new ContactData().withId(contact.getId()).withFirstname(contact.getFirstname()).withLastname(contact.getLastname())
-            .withFirstAddress(contact.getFirstAddress()).withEmail(contact.getEmail()).withEmail2(contact.getEmail2())
-            .withEmail3(contact.getEmail3()).withHomePhone(contact.getHomePhone()).withMobilePhone(contact.getMobilePhone())
-            .withWorkPhone(contact.getWorkPhone());
+    return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+            .withFirstAddress(firstAddress).withEmail(email).withEmail2(email2)
+            .withEmail3(email3).withHomePhone(homePhone).withMobilePhone(mobilePhone)
+            .withWorkPhone(workPhone);
   }
 
 }

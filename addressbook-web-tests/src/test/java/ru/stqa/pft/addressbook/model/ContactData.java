@@ -221,7 +221,10 @@ public class ContactData {
 
     if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+    if (allPhones != null ? !allPhones.equals(that.allPhones) : that.allPhones != null) return false;
+    if (allEmails != null ? !allEmails.equals(that.allEmails) : that.allEmails != null) return false;
+    return allAddress != null ? allAddress.equals(that.allAddress) : that.allAddress == null;
 
   }
 
@@ -230,6 +233,9 @@ public class ContactData {
     int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
+    result = 31 * result + (allEmails != null ? allEmails.hashCode() : 0);
+    result = 31 * result + (allAddress != null ? allAddress.hashCode() : 0);
     return result;
   }
 
@@ -239,6 +245,9 @@ public class ContactData {
             "id=" + id +
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", allEmails='" + allEmails + '\'' +
+            ", allAddress='" + allAddress + '\'' +
             '}';
   }
 }

@@ -26,7 +26,7 @@ public class ContactEmailTest extends TestBase {
 
   private String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3()).stream()
-            .filter((s) -> !s.equals("")).map(ContactEmailTest::cleaned).collect(Collectors.joining("\n"));
+            .filter((s) -> s != null && s.equals("")).map(ContactEmailTest::cleaned).collect(Collectors.joining("\n"));
   }
 
   public static String cleaned (String phone){
