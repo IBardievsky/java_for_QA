@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by User on 9/22/2016.
@@ -113,8 +114,11 @@ public class ContactHelper extends HelperBase{
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
-      String[] phones = cells.get(5).getText().split("\n");
-      contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
+      String allAddress = cells.get(3).getText();
+      String allEmails = cells.get(4).getText();
+      String allPhones = cells.get(5).getText();
+      contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName)
+              .withAllAddress(allAddress).withAllEmails(allEmails).withAllPhones(allPhones));
     }
     return new Contacts(contactCache);
   }
