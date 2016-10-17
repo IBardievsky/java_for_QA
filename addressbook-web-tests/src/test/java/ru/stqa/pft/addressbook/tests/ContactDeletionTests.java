@@ -11,14 +11,14 @@ import static org.hamcrest.MatcherAssert.*;
 /**
  * Created by Home PC on 25.09.2016.
  */
-public class DeletionContactTests extends TestBase {
+public class ContactDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions(){
     if(app.contact().all().size() == 0){
       app.contact().creationContact(new ContactData().withFirstname("Vasya").withLastname("Pupkin").withNickname("Vaxa")
               .withCompany("CHESM").withMobilePhone("123456789").withEmail("vpupa@test.go").withBday("9").withBmonth(null)
-              .withByear("9561").withAddress("Ode$$aMama").withGroup("test1"));
+              .withByear("9561").withSecondAddress("Ode$$aMama").withGroup("test1"));
     }
   }
 

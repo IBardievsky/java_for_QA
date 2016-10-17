@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
-public class CreationNewContact extends TestBase {
+public class ContactCreationTests extends TestBase {
 
 
   @Test
@@ -16,7 +16,7 @@ public class CreationNewContact extends TestBase {
     Contacts before = app.contact().all();
     ContactData contact = new ContactData().withFirstname("Petro").withLastname("Pupkin").withNickname("Vaxa")
             .withCompany("CHESM").withMobilePhone("123456789").withEmail("vpupa@test.go").withBday("9").withBmonth(null)
-            .withByear("9561").withAddress("Ode$$aMama").withGroup("test1");
+            .withByear("9561").withSecondAddress("Ode$$aMama").withGroup("test1");
     app.contact().creationContact(contact);
     app.goTo().homePage();
     assertThat(app.contact().count(), equalTo(before.size() + 1));

@@ -8,7 +8,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by User on 9/22/2016.
@@ -27,12 +26,17 @@ public class ContactHelper extends HelperBase{
     type(By.name("lastname"),contactData.getLastname());
     type(By.name("nickname"),contactData.getNickname());
     type(By.name("company"),contactData.getCompany());
+    type(By.name("address"),contactData.getFirstAddress());
+    type(By.name("home"),contactData.getHomePhone());
     type(By.name("mobile"),contactData.getMobilePhone());
+    type(By.name("work"),contactData.getWorkPhone());
     type(By.name("email"),contactData.getEmail());
+    type(By.name("email2"),contactData.getEmail2());
+    type(By.name("email3"),contactData.getEmail3());
     select(By.name("bday"),contactData.getBday());
     select(By.name("bmonth"),contactData.getBmonth());
     type(By.name("byear"), contactData.getByear());
-    type(By.name("address2"),contactData.getAddress());
+    type(By.name("address2"),contactData.getSecondAddress());
 
     if (creation){
       select(By.name("new_group"), contactData.getGroup());
