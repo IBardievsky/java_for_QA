@@ -1,0 +1,50 @@
+[
+  {
+    "firstname": "firstName 1",
+    "lastname": "lastName 1",
+    "nickname": "nick 1",
+    "company": "company 1",
+    "firstAddress": "address 1",
+    "mobilePhone": "mobile 1",
+    "email": "email 1",
+    "bday": "bday 1",
+    "bmonth": "bmonth 1",
+    "byear": "byear 1"
+  },
+  {
+    "firstname": "firstName 2",
+    "lastname": "lastName 2",
+    "nickname": "nick 2",
+    "company": "company 2",
+    "firstAddress": "address 2",
+    "mobilePhone": "mobile 2",
+    "email": "email 2",
+    "bday": "bday 2",
+    "bmonth": "bmonth 2",
+    "byear": "byear 2"
+  },
+  {
+    "firstname": "firstName 3",
+    "lastname": "lastName 3",
+    "nickname": "nick 3",
+    "company": "company 3",
+    "firstAddress": "address 3",
+    "mobilePhone": "mobile 3",
+    "email": "email 3",
+    "bday": "bday 3",
+    "bmonth": "bmonth 3",
+    "byear": "byear 3"
+  },
+  {
+    "firstname": "firstName 4",
+    "lastname": "lastName 4",
+    "nickname": "nick 4",
+    "company": "company 4",
+    "firstAddress": "address 4",
+    "mobilePhone": "mobile 4",
+    "email": "email 4",
+    "bday": "bday 4",
+    "bmonth": "bmonth 4",
+    "byear": "byear 4"
+  }
+]
