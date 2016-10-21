@@ -7,8 +7,6 @@
     "firstAddress": "address 1",
     "mobilePhone": "mobile 1",
     "email": "email 1",
-    "bday": "bday 1",
-    "bmonth": "bmonth 1",
     "byear": "byear 1"
   },
   {
@@ -19,8 +17,6 @@
     "firstAddress": "address 2",
     "mobilePhone": "mobile 2",
     "email": "email 2",
-    "bday": "bday 2",
-    "bmonth": "bmonth 2",
     "byear": "byear 2"
   },
   {
@@ -31,8 +27,6 @@
     "firstAddress": "address 3",
     "mobilePhone": "mobile 3",
     "email": "email 3",
-    "bday": "bday 3",
-    "bmonth": "bmonth 3",
     "byear": "byear 3"
   },
   {
@@ -43,8 +37,6 @@
     "firstAddress": "address 4",
     "mobilePhone": "mobile 4",
     "email": "email 4",
-    "bday": "bday 4",
-    "bmonth": "bmonth 4",
     "byear": "byear 4"
   }
 ]
