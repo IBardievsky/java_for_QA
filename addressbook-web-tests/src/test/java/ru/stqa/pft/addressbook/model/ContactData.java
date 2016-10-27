@@ -1,41 +1,103 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+
+  @Id
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column(name = "firstname")
   private  String firstname;
+
   @Expose
+  @Column(name = "lastname")
   private  String lastname;
+
   @Expose
+  @Column(name = "nickname")
   private  String nickname;
-  private  File photo;
+
+  @Transient
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
+
   @Expose
-  private  String company;
+  @Column(name = "company")
+  private String company;
+
   @Expose
-  private  String firstAddress;
-  private  String homePhone;
+  @Column(name = "address")
+  @Type(type = "text")
+  private String firstAddress;
+
   @Expose
-  private  String mobilePhone;
-  private  String workPhone;
+  @Column(name = "home")
+  @Type(type = "text")
+  private String homePhone;
+
   @Expose
-  private  String email;
-  private  String email2;
-  private  String email3;
+  @Column(name = "mobile")
+  @Type(type = "text")
+  private String mobilePhone;
+
   @Expose
-  private  String bday;
+  @Column(name = "work")
+  @Type(type = "text")
+  private String workPhone;
+
   @Expose
+  @Column(name = "email")
+  @Type(type = "text")
+  private String email;
+
+  @Expose
+  @Column(name = "email2")
+  @Type(type = "text")
+  private String email2;
+
+  @Expose
+  @Column(name = "email3")
+  @Type(type = "text")
+  private String email3;
+
+  @Expose
+  @Transient
+  private String bday;
+
+  @Expose
+  @Transient
   private  String bmonth;
+
   @Expose
+  @Transient
   private  String byear;
+
+  @Transient
   private  String secondAddress;
+
+  @Transient
   private  String group;
+
+  @Transient
   private  String allPhones;
+
+  @Transient
   private  String allEmails;
+
+  @Transient
   private  String allAddress;
+
+  @Transient
   private  String allInfo;
 
 
@@ -57,7 +119,7 @@ public class ContactData {
 
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -172,7 +234,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public String getFirstAddress() {
@@ -264,6 +326,14 @@ public class ContactData {
             "id=" + id +
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
+            ", nickname='" + nickname + '\'' +
+            ", firstAddress='" + firstAddress + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", email='" + email + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
             '}';
   }
 }
