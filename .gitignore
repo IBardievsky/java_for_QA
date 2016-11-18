@@ -16,3 +16,5 @@ gradle-app.setting
 *.iml
 *.log
 *.xml
+selenium-server-standalone-3.0.1.jar
+jenkins.war.bak

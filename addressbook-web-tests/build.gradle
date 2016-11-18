@@ -40,3 +40,4 @@ task testContacts (type: Test) {
     }
 }
 
+//**/test-results/**/*.xml
